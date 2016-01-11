@@ -1,5 +1,7 @@
 :issues: https://github.com/jmini/htmltools-jbake/issues
 :license: http://www.eclipse.org/legal/epl-v10.html
+:oomph_setup: https://raw.githubusercontent.com/jmini/htmltools-jbake/master/HtmltoolsJBake.setup
+:bintray_repo: https://bintray.com/jmini/maven
 
 = htmltools-jbake
 
@@ -7,7 +9,7 @@ Html Utilities for JBake (based on JSoup).
 
 == Usage
 
-You can get this library from my maven repository. You can use this in your pom:
+You can get this library from link:{bintray_repo}[my maven repository on Bintray]. You can use this in your pom:
 
 [source,xml]
 ----
@@ -31,7 +33,9 @@ My Blog (built with JBake) is using this utility: link:http://github.com/jmini/j
 
 The source code of the project is available in the link:src/[src] folder (following the maven structure).
 
-With Eclipse IDE, here is how you can import this project:
+There is an Eclipse Oomph Setup Task to import this project: link:{oomph_setup}[HtmltoolsJBake.setup]
+
+If you prefer to import the project manually, here is how you can do it:
 
 * Clone or add this repository using the "Git Repositories" view.
 * Start the "Import Projects..." wizard on the "Working Directory" folder and pick the option "Import as general project".
