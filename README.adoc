@@ -1,0 +1,52 @@
+:issues: https://github.com/jmini/htmltools-jbake/issues
+:license: http://www.eclipse.org/legal/epl-v10.html
+
+= htmltools-jbake
+
+Html Utilities for JBake (based on JSoup).
+
+== Usage
+
+You can get this library from my maven repository. You can use this in your pom:
+
+[source,xml]
+----
+<repositories>
+  <repository>
+    <id>bintray.jmini.maven</id>
+    <url>http://dl.bintray.com/jmini/maven/</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+----
+
+My Blog (built with JBake) is using this utility: link:http://github.com/jmini/jmini.github.io/[jmini.github.io].
+
+== Code
+
+The source code of the project is available in the link:src/[src] folder (following the maven structure).
+
+With Eclipse IDE, here is how you can import this project:
+
+* Clone or add this repository using the "Git Repositories" view.
+* Start the "Import Projects..." wizard on the "Working Directory" folder and pick the option "Import as general project".
+* Back in the Package Explorer view, select "Configure" > "Convert to Maven Project" on the project.
+
+=== Build
+
+Run maven install on the root pom file:
+
+  mvn install
+
+== Get in touch
+
+Use the link:{issues}[htmltools-jbake issue tracker] on GitHub.
+
+== License
+
+link:{license}[Eclipse Public License - v 1.0]
