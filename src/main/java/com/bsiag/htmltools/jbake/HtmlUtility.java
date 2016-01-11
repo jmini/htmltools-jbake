@@ -47,6 +47,27 @@ public final class HtmlUtility {
     return "";
   }
 
+  /**
+   * @param srcFile
+   *          absolute path to the file on the local file system
+   * @param repoName
+   *          name of the Git Repository as checked out on the local file system. (srcFile contains this string)
+   * @param gitViewerPrefix
+   *          prefix of the URL for the online Git viewer
+   * @return
+   */
+  public static String computeGitViewerUrl(String srcFile, String repoName, String gitViewerPrefix) {
+    int i = srcFile.indexOf(repoName);
+    int delta;
+    if (gitViewerPrefix.endsWith("/")) {
+      delta = 1;
+    }
+    else {
+      delta = 0;
+    }
+    return gitViewerPrefix + srcFile.substring(i + repoName.length() + delta).replaceAll("\\\\", "/");
+  }
+
   private HtmlUtility() {
   }
 }

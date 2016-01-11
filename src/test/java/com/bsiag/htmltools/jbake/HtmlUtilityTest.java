@@ -22,4 +22,11 @@ public class HtmlUtilityTest {
     assertEquals("blog/2013/", HtmlUtility.computeImgPath("index.html", "blog/2013/"));
   }
 
+  @Test
+  public void testComputeGitViewerUrl() {
+    assertEquals("https://github.com/jmini/jbake-sample/blob/master/src/main/jbake/content/blog/2013/fourth-post.adoc", HtmlUtility.computeGitViewerUrl("C:\\****\\git\\jbake-sample_repo\\src\\main\\jbake\\content\\blog\\2013\\fourth-post.adoc", "jbake-sample_repo", "https://github.com/jmini/jbake-sample/blob/master/"));
+    assertEquals("https://github.com/jmini/jbake-sample/blob/master/src/main/jbake/content/blog/2013/fourth-post.adoc", HtmlUtility.computeGitViewerUrl("C:\\****\\git\\jbake-sample_repo\\src\\main\\jbake\\content\\blog\\2013\\fourth-post.adoc", "jbake-sample_repo", "https://github.com/jmini/jbake-sample/blob/master"));
+    assertEquals("https://github.com/jmini/jmini.github.io/blob/develop/src/main/jbake/content/blog/2016/2016-01-03-desktop-wallpaper-eclipse.adoc", HtmlUtility.computeGitViewerUrl("C:\\xxxxxx\\git\\jmini.github.io\\src\\main\\jbake\\content\\blog\\2016\\2016-01-03-desktop-wallpaper-eclipse.adoc", "jmini.github.io", "https://github.com/jmini/jmini.github.io/blob/develop"));
+  }
+
 }
