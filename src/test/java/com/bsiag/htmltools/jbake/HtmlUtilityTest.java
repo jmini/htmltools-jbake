@@ -17,9 +17,47 @@ public class HtmlUtilityTest {
   @Test
   public void testComputeImgPath() {
     assertEquals("", HtmlUtility.computeImgPath("blog/2013/third-post.html", "blog/2013/third-post.html"));
-    assertEquals("blog/2013/", HtmlUtility.computeImgPath("index.html", "blog/2013/third-post.html"));
+    assertEquals("", HtmlUtility.computeImgPath("", ""));
+
     assertEquals("", HtmlUtility.computeImgPath("index.html", "some-post.html"));
-    assertEquals("blog/2013/", HtmlUtility.computeImgPath("index.html", "blog/2013/"));
+    assertEquals("", HtmlUtility.computeImgPath("index.html", "/some-post.html"));
+    assertEquals("", HtmlUtility.computeImgPath("/index.html", "some-post.html"));
+    assertEquals("", HtmlUtility.computeImgPath("/index.html", "/some-post.html"));
+
+    assertEquals("", HtmlUtility.computeImgPath("blog/index.html", "blog/some-post.html"));
+    assertEquals("", HtmlUtility.computeImgPath("blog/index.html", "/blog/some-post.html"));
+    assertEquals("", HtmlUtility.computeImgPath("/blog/index.html", "blog/some-post.html"));
+    assertEquals("", HtmlUtility.computeImgPath("/blog/index.html", "/blog/some-post.html"));
+
+    assertEquals("blog/2013/", HtmlUtility.computeImgPath("index.html", "blog/2013/third-post.html"));
+    assertEquals("blog/2013/", HtmlUtility.computeImgPath("index.html", "/blog/2013/third-post.html"));
+    assertEquals("blog/2013/", HtmlUtility.computeImgPath("/index.html", "blog/2013/third-post.html"));
+    assertEquals("blog/2013/", HtmlUtility.computeImgPath("/index.html", "/blog/2013/third-post.html"));
+
+    assertEquals("blog/2014/", HtmlUtility.computeImgPath("index.html", "blog/2014/"));
+    assertEquals("blog/2014/", HtmlUtility.computeImgPath("index.html", "/blog/2014/"));
+    assertEquals("blog/2014/", HtmlUtility.computeImgPath("/index.html", "blog/2014/"));
+    assertEquals("blog/2014/", HtmlUtility.computeImgPath("/index.html", "/blog/2014/"));
+
+    assertEquals("2015/", HtmlUtility.computeImgPath("blog/page.html", "blog/2015/third-post.html"));
+    assertEquals("2015/", HtmlUtility.computeImgPath("blog/page.html", "/blog/2015/third-post.html"));
+    assertEquals("2015/", HtmlUtility.computeImgPath("/blog/page.html", "blog/2015/third-post.html"));
+    assertEquals("2015/", HtmlUtility.computeImgPath("/blog/page.html", "/blog/2015/third-post.html"));
+
+    assertEquals("2012/", HtmlUtility.computeImgPath("blog/page.html", "blog/2012/"));
+    assertEquals("2012/", HtmlUtility.computeImgPath("blog/page.html", "/blog/2012/"));
+    assertEquals("2012/", HtmlUtility.computeImgPath("/blog/page.html", "blog/2012/"));
+    assertEquals("2012/", HtmlUtility.computeImgPath("/blog/page.html", "/blog/2012/"));
+
+    assertEquals("../", HtmlUtility.computeImgPath("blog/page.html", "third-post.html"));
+    assertEquals("../", HtmlUtility.computeImgPath("blog/page.html", "/third-post.html"));
+    assertEquals("../", HtmlUtility.computeImgPath("/blog/page.html", "third-post.html"));
+    assertEquals("../", HtmlUtility.computeImgPath("/blog/page.html", "/third-post.html"));
+
+    assertEquals("../blog/2013/", HtmlUtility.computeImgPath("archive/page.html", "blog/2013/third-post.html"));
+    assertEquals("../blog/2013/", HtmlUtility.computeImgPath("archive/page.html", "/blog/2013/third-post.html"));
+    assertEquals("../blog/2013/", HtmlUtility.computeImgPath("/archive/page.html", "blog/2013/third-post.html"));
+    assertEquals("../blog/2013/", HtmlUtility.computeImgPath("/archive/page.html", "/blog/2013/third-post.html"));
   }
 
   @Test

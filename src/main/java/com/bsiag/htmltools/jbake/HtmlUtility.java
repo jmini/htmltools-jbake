@@ -1,5 +1,8 @@
 package com.bsiag.htmltools.jbake;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -40,11 +43,31 @@ public final class HtmlUtility {
     if (outputFile == null || contentFile == null || outputFile.equals(contentFile)) {
       return "";
     }
-    int index = contentFile.lastIndexOf("/");
-    if (index > 0) {
-      return contentFile.substring(0, index + 1);
+    Path pathAbsolute = folderPath(contentFile);
+    Path pathBase = folderPath(outputFile);
+    Path pathRelative = pathBase.relativize(pathAbsolute);
+    String result = pathRelative.toString();
+    if (result.isEmpty()) {
+      return "";
     }
-    return "";
+    return result.replaceAll("\\\\", "/") + "/";
+
+  }
+
+  private static Path folderPath(String filePath) {
+    int index = filePath.lastIndexOf("/");
+    if (index > 0) {
+      String folder = filePath.substring(0, index);
+      if (folder.startsWith("/")) {
+        return Paths.get(folder);
+      }
+      else {
+        return Paths.get("/" + folder);
+      }
+    }
+    else {
+      return Paths.get("/");
+    }
   }
 
   /**
