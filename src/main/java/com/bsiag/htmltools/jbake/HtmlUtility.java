@@ -23,15 +23,31 @@ public final class HtmlUtility {
     Document doc = Jsoup.parseBodyFragment(htmlContent);
     doc.outputSettings().charset("ASCII");
 
-    String imgPrefixPath = computeImgPath(outputFile, contentFile);
+    String relPrefixPath = computeRelPath(outputFile, contentFile);
 
-    if (!imgPrefixPath.isEmpty()) {
-      Elements elements = doc.getElementsByTag("img");
-      for (Element e : elements) {
+    if (!relPrefixPath.isEmpty()) {
+      Elements imgElements = doc.getElementsByTag("img");
+      for (Element e : imgElements) {
         String src = e.attr("src");
         if (src != null) {
-          String newSrc = imgPrefixPath + src;
+          String newSrc = relPrefixPath + src;
           e.attr("src", newSrc);
+        }
+      }
+
+      Elements aElements = doc.getElementsByTag("a");
+      for (Element e : aElements) {
+        String href = e.attr("href");
+        if (shouldFixLink(href)) {
+          String newSrc;
+          if (href.startsWith("#")) {
+            String fileName = fileName(contentFile);
+            newSrc = relPrefixPath + fileName + href;
+          }
+          else {
+            newSrc = relPrefixPath + href;
+          }
+          e.attr("href", newSrc);
         }
       }
     }
@@ -39,7 +55,11 @@ public final class HtmlUtility {
     return doc.body().html();
   }
 
-  static String computeImgPath(String outputFile, String contentFile) {
+  static boolean shouldFixLink(String href) {
+    return href != null && !href.isEmpty() && !href.matches("(mailto\\:|[a-zA-Z]+\\://|//).+");
+  }
+
+  static String computeRelPath(String outputFile, String contentFile) {
     if (outputFile == null || contentFile == null || outputFile.equals(contentFile)) {
       return "";
     }
@@ -51,7 +71,6 @@ public final class HtmlUtility {
       return "";
     }
     return result.replaceAll("\\\\", "/") + "/";
-
   }
 
   private static Path folderPath(String filePath) {
@@ -68,6 +87,18 @@ public final class HtmlUtility {
     else {
       return Paths.get("/");
     }
+  }
+
+  static String fileName(String contentFile) {
+    if (contentFile == null || contentFile.isEmpty()) {
+      return "";
+    }
+    int i1 = contentFile.lastIndexOf("/");
+    int i2 = contentFile.lastIndexOf("\\");
+    if (i1 > 0 || i2 > 0) {
+      return contentFile.substring(Math.max(i1, i2) + 1);
+    }
+    return contentFile;
   }
 
   /**
